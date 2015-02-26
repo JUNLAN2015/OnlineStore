@@ -1,0 +1,44 @@
+﻿@{
+    //page title
+    ViewBag.Title = T("Admin.Dashboard").Text;
+}
+
+<div class="section-header">
+    <div class="title">
+        <i class="fa fa-bar-chart-o"></i>
+        @T("Admin.Dashboard.StoreStatistics")
+    </div>
+</div>
+
+<div class="dashboard">
+	@Html.Action("WidgetsByZone", "Widget", new { widgetZone = "admin_dashboard_top" })
+
+	<div class="row-fluid">
+		<div class="span10">
+			@Html.Action("OrderAverageReport", "Order")
+			<div class="row-fluid">
+				<div class="span6">
+					@Html.Action("BestsellersBriefReportByQuantity", "Order")
+				</div>
+				<div class="span6">
+					@Html.Action("BestsellersBriefReportByAmount", "Order")
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span6">
+					@Html.Action("ReportRegisteredCustomers", "Customer")
+				</div>
+				<div class="span6">
+					@Html.Action("OrderIncompleteReport", "Order")	
+				</div>
+			</div>
+		</div>
+
+		<div class="span2">
+			@Html.Action("MarketplaceFeed")
+		</div>
+	</div>
+
+	@Html.Action("WidgetsByZone", "Widget", new { widgetZone = "admin_dashboard_bottom" })
+</div>
+

@@ -1,0 +1,36 @@
+﻿@using Telerik.Web.Mvc.UI
+@{    
+    ViewBag.Title = T("Admin.Catalog.Attributes.SpecificationAttributes").Text;
+}
+
+<div class="section-header">
+    <div class="title">
+        @T("Admin.Catalog.Attributes.SpecificationAttributes")
+    </div>
+    <div class="options">
+        <a href="@Url.Action("Create")" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp;@T("Admin.Common.AddNew")</a>
+    </div>
+</div>
+
+<table class="adminContent">
+    <tr>
+        <td>
+            @(Html.Telerik().Grid<SpecificationAttributeModel>()
+				.Name("specificationattributes-grid")
+				.Columns(columns =>
+				{
+				columns.Bound(x => x.Name)
+					.Template(x => Html.ActionLink(x.Name, "Edit", new { id = x.Id }))
+					.ClientTemplate("<a href='Edit/<#= Id #>'><#= Name #></a>");
+				columns.Bound(x => x.DisplayOrder)
+					.Width(200)
+					.Filterable(false)
+					.Centered();
+				})
+				.Filterable()
+				.Pageable(settings => settings.PageSize((int)ViewData["GridPageSize"]).Position(GridPagerPosition.Both))
+				.DataBinding(dataBinding => dataBinding.Ajax().Select("List", "SpecificationAttribute"))
+				.EnableCustomBinding(true))
+        </td>
+    </tr>
+</table>
